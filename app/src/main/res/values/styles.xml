@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="CustomTabLayout" parent="Widget.Design.TabLayout">
-        <item name="tabBackground">@android:color/transparent</item>  <!-- Remove background -->
-        <item name="elevation">0dp</item>  <!-- Remove elevation -->
-    </style>
-</resources>

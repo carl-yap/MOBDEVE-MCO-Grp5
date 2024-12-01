@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">MOBDEVE MCO (UI Only)</string>
-    <string name="gallery_image_description">Image in gallery</string>
-    <string name="add_photo_description">Add a new photo</string>
-    <string name="back_button_text">Back to Albums</string>
-    <string name="menu_button_desc">menu for photos</string>
-</resources>
