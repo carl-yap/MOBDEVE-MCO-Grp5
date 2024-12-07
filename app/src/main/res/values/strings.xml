@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">CameraXApp</string>
-    <string name="take_photo">Take Photo</string>
-    <string name="flip_camera">Flip Camera</string>
-    <string-array name="sort_options">
-        <item>Newest</item>
-        <item>Oldest</item>
-    </string-array>
-</resources>
