@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "417398602142",
+    "project_id": "picture-pawfect",
+    "storage_bucket": "picture-pawfect.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417398602142:android:591100a82b0cd2f3ae7e8f",
+        "android_client_info": {
+          "package_name": "com.mobdeve.s21.manipol.marion.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAld2yYgnIHl64sAGqtI0i4ORKCu2f2IVw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
