@@ -10,36 +10,42 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <!-- Spinner for sorting -->
-    <Spinner
-        android:id="@+id/sortSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="16dp"
-        android:layout_marginStart="277dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginBottom="16dp" />
+    <ImageButton
+        android:id="@+id/buttonMenu"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- RecyclerView for displaying the list of images -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/idRVImages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/sortSpinner"/>
+        android:layout_below="@+id/buttonMenu"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp" />
 
     <!-- Sign Out Button -->
     <Button
         android:id="@+id/buttonSignOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@android:color/black"
         android:text="Sign Out"
         android:textColor="@android:color/white"
-        android:backgroundTint="@android:color/black" />
+        android:visibility="gone" />
 
     <!-- Floating Action Button for Camera -->
     <ImageButton

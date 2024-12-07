@@ -2,16 +2,19 @@ package com.mobdeve.s21.manipol.marion.myapplication;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerViewAdapter imageRVAdapter;
     private Spinner sortSpinner;
     private Button signOutButton;
-    private ImageButton fabCamera;
+    private ImageButton fabCamera, btnMenu;
 
     private static final String TAG = "MainActivity";
     private static final String[] REQUIRED_PERMISSIONS = createRequiredPermissions();
@@ -53,12 +56,29 @@ public class MainActivity extends AppCompatActivity {
 
         imagePaths = new ArrayList<>();
         imagesRV = findViewById(R.id.idRVImages);
-        sortSpinner = findViewById(R.id.sortSpinner);
+        // sortSpinner = findViewById(R.id.sortSpinner);
         signOutButton = findViewById(R.id.buttonSignOut);
         fabCamera = findViewById(R.id.fabCamera);
 
         // Setup sorting spinner
-        setupSortSpinner();
+        // setupSortSpinner();
+
+        // Setup gallery menu
+        btnMenu = findViewById(R.id.buttonMenu);
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(MainActivity.this, view);
+                popupMenu.getMenuInflater().inflate(R.menu.photo_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        return handleMenuItemClick(menuItem);
+                    }
+                });
+                popupMenu.show();
+            }
+        });
 
         // Setup camera fab
         fabCamera.setOnClickListener(v -> {
@@ -102,6 +122,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+    }
+
+    private boolean handleMenuItemClick(MenuItem item) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        if (item.getItemId() == R.id.sort_newest) {
+            editor.putBoolean("sort_by_newest", true);
+            editor.apply();
+            getImagePath(true);
+            return true;
+        } else if (item.getItemId() == R.id.sort_oldest) {
+            editor.putBoolean("sort_by_newest", false);
+            editor.apply();
+            getImagePath(false);
+            return true;
+        } else if (item.getItemId() == R.id.action_logout) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void startApp() {
@@ -191,7 +235,9 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         // Refresh images when returning to the activity
         if (imagePaths != null && imageRVAdapter != null) {
-            getImagePath(sortSpinner.getSelectedItemPosition() == 0);
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+            boolean sp_sort = sharedPreferences.getBoolean("sort_by_newest", true);
+            getImagePath(sp_sort);
         }
     }
 }

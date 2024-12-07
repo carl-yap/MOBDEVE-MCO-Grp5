@@ -19,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.mobdeve.s21.manipol.marion.myapplication.databinding.ActivityPhotoPreviewBinding;
 import com.squareup.picasso.Picasso;
@@ -42,6 +44,21 @@ public class PhotoPreviewActivity extends AppCompatActivity {
 
         binding = ActivityPhotoPreviewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Back button click listener
+        binding.galleryButton.setOnClickListener(v -> {
+            new AlertDialog.Builder(v.getContext())
+                    .setTitle("Return to gallery?")
+                    .setMessage("Stickers will not be saved.")
+                    .setPositiveButton("Return", (dialog, which) -> {
+                        Intent intent = new Intent(this, MainActivity.class);
+                        startActivity(intent);
+                    })
+                    .setNegativeButton("Cancel", (dialog, which) -> {
+                        dialog.dismiss();
+                    })
+                    .show();
+        });
 
         ImageButton helpButton = findViewById(R.id.help_button);
 
@@ -72,7 +89,7 @@ public class PhotoPreviewActivity extends AppCompatActivity {
             return;
         }
 
-        binding.gestureFab.setOnClickListener(v -> {
+        binding.addStickerButton.setOnClickListener(v -> {
             binding.gestureOverlay.setVisibility(View.VISIBLE);
             binding.gestureInstructionText.setVisibility(View.VISIBLE);
 
@@ -91,7 +108,7 @@ public class PhotoPreviewActivity extends AppCompatActivity {
             }
         });
 
-        Button saveButton = binding.saveButton;
+        ImageButton saveButton = binding.saveButton;
         saveButton.setOnClickListener(v -> {
             saveImageWithStickers();
         });
